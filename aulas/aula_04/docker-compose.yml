@@ -1,15 +1,13 @@
 version: '3' 
 services:
   flask_alpine:
-    image: "flaskapp_alpine"
+    image: "auth_service"
     ports:
       - 5000
     volumes:
       - "$PWD:/app"
-    environment:
-      - FLASK_ENV=production
     networks:
-      nova_rede:
+      auth:
         ipv4_address: '200.100.50.5'
 
   mongodb:
@@ -19,14 +17,14 @@ services:
     volumes:
       - "db:/data/db"
     networks:
-      nova_rede:
+      auth:
         ipv4_address: '200.100.50.50'
 
 volumes:
   db: {}
 
 networks:  
-  nova_rede:
+  auth:
     driver: bridge
     ipam:
       config:
